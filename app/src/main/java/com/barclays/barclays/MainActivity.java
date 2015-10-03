@@ -3,31 +3,46 @@ package com.barclays.barclays;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 
 
-public class
-        MainActivity extends Activity {
+public class  MainActivity  extends Activity {
 
-    /** Called when the activity is first created. */
+    //Set the time the splash scree time will take
+    private static int splashInterval = 3000;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+// Set the view of this activity to be Splash.xml
         setContentView(R.layout.activity_main);
 
+        new android.os.Handler().postDelayed(new Runnable() {
 
-        Button firstButton = (Button) findViewById(R.id.button);
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //Starting the splash activity
+                Intent i = new Intent(MainActivity.this, Ruleone.class);
+                startActivity(i);
 
 
-        //Listener for the Purchase Requisition button
-        firstButton.setOnClickListener
-                (new Button.OnClickListener() {
-                     public void onClick(View v) {
-                         Intent intent = new Intent(MainActivity.this, Ruleone.class);
-                         startActivity(intent);
+                //This exits the SplashScreen activity
+                this.finish();
+            }
 
-                     }
-                 }
-                );
-    }}
+            private void finish() {
+                // TODO Auto-generated method stub
+
+            }
+        }, splashInterval);
+
+    }
+
+
+}
